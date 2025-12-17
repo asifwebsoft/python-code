@@ -12,6 +12,7 @@ from util.widget import (Button,
 	)
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QIcon
 
 class Window(QMainWindow) : 
 	def __init__(self) : 
@@ -45,9 +46,9 @@ class Window(QMainWindow) :
 		bkIcon = IconButton("icons/bk.png", None,50,50)
 		bkIcon.setStyleSheet("background-color : #f5f5f5; border-radius : 25px; border: 1px solid #ddd")
 
-		playIcon = IconButton("icons/play.png", None,100,100)
-		playIcon.setStyleSheet("background-color : #f5f5f5; border-radius : 50px; border: 1px solid #ddd")
-		playIcon.clicked.connect(self.toggleMusic)
+		self.playIcon = IconButton("icons/play.png", None,100,100)
+		self.playIcon.setStyleSheet("background-color : #f5f5f5; border-radius : 50px; border: 1px solid #ddd")
+		self.playIcon.clicked.connect(self.toggleMusic)
 
 		fwIcon = IconButton("icons/fw.png", None,50,50)
 		fwIcon.setStyleSheet("background-color : #f5f5f5; border-radius : 25px; border: 1px solid #ddd")
@@ -56,11 +57,12 @@ class Window(QMainWindow) :
 		stopIcon.setStyleSheet("background-color : #f5f5f5; border-radius : 25px; border: 1px solid #ddd")
 		stopIcon.clicked.connect(self.stop)
 
+
 		layout = HLayout([
 
 			uploadIcon,
 			bkIcon,
-			playIcon,
+			self.playIcon,
 			fwIcon,
 			stopIcon
 			
@@ -79,6 +81,8 @@ class Window(QMainWindow) :
 			content = QMediaContent(QUrl.fromLocalFile(path[0]))
 			self.player.setMedia(content)
 			self.player.play()
+			self.playIcon.setIcon(QIcon("icons/pause.png"))
+
 			#QFileDialog.close(self)
 
 	def toggleMusic(self) : 
@@ -88,13 +92,18 @@ class Window(QMainWindow) :
 
 		if self.player.state() == QMediaPlayer.PlayingState : 
 			self.player.pause()
+			self.playIcon.setIcon(QIcon("icons/play.png"))
 
 		elif self.player.state() == QMediaPlayer.PausedState : 
 			self.player.play()
+			self.playIcon.setIcon(QIcon("icons/pause.png"))
 	
 	def stop(self) : 
 		if self.player.mediaStatus() == QMediaPlayer.NoMedia : 
 			self.player.stop()
+			self.player.setPosition(0)
+			self.player.setMedia(QMediaContent())
+			
 
 if __name__ == "__main__" : 
 	app = QApplication(sys.argv)
