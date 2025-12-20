@@ -32,7 +32,7 @@ class Window(QMainWindow) :
 	def __init__(self) : 
 		
 		super().__init__() 
-		icon = QIcon("icons/app.png")
+		icon = QIcon("icons/music.png")
 		self.setFixedSize(800,600)
 		self.setWindowTitle("Music 0.0.1")
 		self.setWindowIcon(icon)
@@ -92,6 +92,7 @@ class Window(QMainWindow) :
 		self.slider = QSlider(Qt.Horizontal,widget)
 		self.slider.setGeometry(50,50,200,30)
 		self.slider.sliderMoved.connect(self.onSlide)
+		self.slider.sliderReleased.connect(self.sliderLeave)
 
 
 		layout = HLayout([
@@ -140,6 +141,10 @@ class Window(QMainWindow) :
 		elif self.player.state() == QMediaPlayer.PausedState : 
 			self.player.play()
 			self.playIcon.setIcon(QIcon("icons/pause.png"))
+
+		else : 
+			self.player.play()
+			self.playIcon.setIcon(QIcon("icons/pause.png"))
 	
 	def stop(self) : 
 		if self.player.mediaStatus() == QMediaPlayer.NoMedia : 
@@ -171,6 +176,7 @@ class Window(QMainWindow) :
 
 	def onSlide(self,value) : 
 		self.player.setPosition(value)
+		self.player.setMuted(True)
 
 	def mediaStatus(self,status) : 
 		if status == QMediaPlayer.BufferedMedia : 
@@ -183,6 +189,13 @@ class Window(QMainWindow) :
 		minute = round(position/60000,1)
 		self.timestamp.setText(str(minute))
 		self.slider.setValue(position)
+		if self.player.state() == 0 : 
+			self.player.setPosition(0)
+			self.playIcon.setIcon(QIcon("icons/play.png"))
+
+
+	def sliderLeave(self) : 
+		self.slider.setMuted(False)
 
 if __name__ == "__main__" : 
 	app = QApplication(sys.argv)
