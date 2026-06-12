@@ -203,7 +203,7 @@ if __name__ == "__main__" :
 	window.show()
 	sys.exit(app.exec())
 
-
+https://www.flipkart.com/jewelika-metal-dori-plastic-alloy-bracelet/p/itm003d1a5fb7336?pid=BBAHFMSXRHZNBFZ9&lid=LSTBBAHFMSXRHZNBFZ9RCFNB6&marketplace=FLIPKART&q=Asthetika+Kids+Plastic+Bracelet+Set+%28Pack+of+2%29&store=mcr%2F96v%2Ffbc&srno=s_1_27&otracker=search&otracker1=search&fm=Search&iid=7b7f10ba-a1b1-4285-af98-f4762e6eb2af.BBAHFMSXRHZNBFZ9.SEARCH&ppt=sp&ppn=sp&qH=4f6f54c827877f06&ov_redirect=true
 
 
 
